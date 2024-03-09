@@ -23,12 +23,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
     }
 }
 
@@ -43,9 +44,7 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
     // Koin
-    implementation "org.koin:koin-android:$dep_ver.koin_version"
-    implementation "org.koin:koin-androidx-viewmodel:$dep_ver.koin_version"
-    implementation "org.koin:koin-android-scope:$dep_ver.koin_version"
+    implementation "io.insert-koin:koin-android:$dep_ver.koin_version"
 
     implementation project(':data')
     implementation project(':domain')
