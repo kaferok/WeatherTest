@@ -9,6 +9,7 @@ import com.veko.domain.model.Weather
 @Entity(tableName = "city_table")
 data class CityEntity(
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
     val id: Int = 0,
     @ColumnInfo(name = "lon")
     val lon: Double,

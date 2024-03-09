@@ -10,7 +10,7 @@ interface WeatherApi {
     @GET("data/3.0/onecall")
     suspend fun getCoordsByCity(
         @Query("q") city: String
-    ): Result<GetCoordsByCityResponse>
+    ): Result<List<GetCoordsByCityResponse>>
 
     @GET("data/3.0/onecall")
     suspend fun getWeather(

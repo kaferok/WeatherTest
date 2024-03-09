@@ -40,8 +40,8 @@ class WeatherRepositoryImpl(
                     coroutineScope.launch {
                         getWeather(
                             city = city,
-                            lat = response.lat,
-                            lon = response.lon,
+                            lat = response.firstOrNull()?.lat ?: 0.0,
+                            lon = response.firstOrNull()?.lon ?: 0.0,
                             exclude = exclude
                         )
                     }

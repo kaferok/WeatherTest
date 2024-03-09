@@ -8,6 +8,7 @@ import com.veko.domain.model.WeatherDescription
 @Entity(tableName = "weather_description_table")
 data class CommonWeatherEntity(
     @PrimaryKey
+    @ColumnInfo(name = "common_weather_id")
     val id: Int,
     @ColumnInfo(name = "description")
     val description: String,

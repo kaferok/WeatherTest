@@ -19,7 +19,11 @@ object RetrofitBuilder {
     }
 
     private fun getLoggingInterceptor() = HttpLoggingInterceptor().apply {
-        level = HttpLoggingInterceptor.Level.BODY
+        level = if (BuildConfig.DEBUG) {
+            HttpLoggingInterceptor.Level.BODY
+        } else {
+            HttpLoggingInterceptor.Level.NONE
+        }
     }
 
     private fun buildMoshi(): Moshi = Moshi.Builder()
