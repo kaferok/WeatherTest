@@ -4,6 +4,9 @@
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="textAppearanceHeadlineMedium">
+            @style/WeatherExample.TextAppearance.HeadlineMedium
+        </item>
+        <item name="textAppearanceHeadlineLarge">
             @style/WeatherExample.TextAppearance.HeadlineLarge
         </item>
         <item name="textAppearanceTitleMedium">@style/WeatherExample.TextAppearance.TitleMedium

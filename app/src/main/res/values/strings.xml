@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">WeatherExample</string>
+    <string name="current_weather">Погода сейчас</string>
+    <string name="daily_forecast">Недельный прогноз</string>
+
     <string name="c">%s°C</string>
     <string name="feels_like">Ощущается как %s °C</string>
     <string name="pressure">Давление: %s hPa</string>

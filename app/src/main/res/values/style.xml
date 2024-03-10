@@ -8,6 +8,13 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="WeatherExample.TextAppearance.HeadlineMedium" parent="TextAppearance.Material3.HeadlineMedium">
+        <item name="android:textSize">24sp</item>
+        <item name="lineHeight">24sp</item>
+        <item name="fontWeight">500</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="WeatherExample.TextAppearance.TitleMedium" parent="TextAppearance.Material3.TitleMedium">
         <item name="android:textSize">18sp</item>
         <item name="android:textStyle">bold</item>

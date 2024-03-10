@@ -7,6 +7,6 @@ interface WeatherUseCase {
 
     fun observeCityWeather(): Flow<List<Weather>>
 
-    suspend fun getCoords(city: String, exclude: String = "current")
+    suspend fun getCoords(city: String, exclude: String = "minutely,hourly,alerts")
 
 }

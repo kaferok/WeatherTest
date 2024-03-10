@@ -2,7 +2,6 @@ package com.veko.data.di
 
 import com.veko.data.AppDispatchers
 import com.veko.data.api.WeatherApi
-import com.veko.common.connection.ConnectionManager
 import com.veko.data.repository.WeatherRepositoryImpl
 import com.veko.data.retorift.ApiKeyInterceptor
 import com.veko.data.retorift.RetrofitBuilder

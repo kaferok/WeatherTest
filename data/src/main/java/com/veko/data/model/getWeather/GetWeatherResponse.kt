@@ -1,23 +1,28 @@
 package com.veko.data.model.getWeather
 
 import com.google.gson.annotations.SerializedName
-import com.veko.data.model.getWeather.exclude.ExcludeCurrent
-import com.veko.data.model.getWeather.exclude.toEntityModel
-import com.veko.data.storage.entity.CityEntity
+import com.veko.data.model.getWeather.daily.DailyWeatherResponse
+import com.veko.data.model.getWeather.daily.toEntityModel
+import com.veko.data.storage.entity.WeatherEntity
+
 
 data class GetWeatherResponse(
     @SerializedName("lat")
     val lat: Double,
     @SerializedName("lon")
     val lon: Double,
-    @SerializedName("timeZone")
-    val tineZone: String,
+    @SerializedName("timezone_offset")
+    val timeZoneOffset: Long,
     @SerializedName("current")
-    val current: ExcludeCurrent
+    val current: CurrentWeatherResponse,
+    @SerializedName("daily")
+    val daily: List<DailyWeatherResponse>
 )
 
-fun GetWeatherResponse.toEntityModel(city: String) = CityEntity(
+fun GetWeatherResponse.toEntityModel(city: String) = WeatherEntity(
+    timeZoneOffset = timeZoneOffset,
     lon = lon,
     lat = lat,
-    latestWeather = current.toEntityModel(city)
+    latest = current.toEntityModel(city),
+    daily = daily.map(DailyWeatherResponse::toEntityModel)
 )

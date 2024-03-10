@@ -4,12 +4,13 @@ import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.veko.domain.model.CurrentWeather
 
-@Entity(tableName = "latest_weather_table")
-data class LatestWeatherEntity(
+@Entity(tableName = "current_weather_table")
+data class CurrentWeatherEntity(
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "latest_weather_id")
-    val id: Int = 0,
+    @ColumnInfo("date")
+    val date: Long,
     @ColumnInfo(name = "city")
     val city: String,
     @ColumnInfo(name = "temperature")
@@ -26,4 +27,15 @@ data class LatestWeatherEntity(
     val windSpeed: Double,
     @Embedded
     val weatherDescription: CommonWeatherEntity?
+)
+
+fun CurrentWeatherEntity.toDomainModel() = CurrentWeather(
+    date = date,
+    temperature = temperature,
+    feelsLike = feelsLike,
+    pressure = pressure,
+    humidity = humidity,
+    visibility = visibility,
+    windSpeed = windSpeed,
+    weatherDescription = weatherDescription?.toDomainModel()
 )

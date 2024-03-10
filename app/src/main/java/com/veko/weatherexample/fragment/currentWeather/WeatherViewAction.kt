@@ -1,4 +1,4 @@
-package com.veko.weatherexample.fragment.weather
+package com.veko.weatherexample.fragment.currentWeather
 
 import com.veko.weatherexample.utils.ViewAction
 

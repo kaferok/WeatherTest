@@ -1,4 +1,4 @@
-package com.veko.weatherexample.fragment.weather.rv
+package com.veko.weatherexample.fragment.currentWeather.rv
 
 import com.veko.weatherexample.utils.EMPTY_STRING
 

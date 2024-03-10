@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/fragmentWeather"
-        android:name="com.veko.weatherexample.fragment.weather.WeatherFragment">
+        android:name="com.veko.weatherexample.fragment.currentWeather.WeatherFragment">
         <action
             android:id="@+id/actionToAddCity"
             app:destination="@id/dialogAddCity"

@@ -5,7 +5,7 @@ import com.veko.common.connection.ConnectionManager
 import com.veko.common.connection.ConnectionState
 import com.veko.data.model.getWeather.toEntityModel
 import com.veko.data.storage.dao.WeatherDao
-import com.veko.data.storage.entity.CityEntity
+import com.veko.data.storage.entity.WeatherEntity
 import com.veko.data.storage.entity.toDomainModel
 import com.veko.data.utils.doOnSuccess
 import com.veko.data.utils.safeRequest
@@ -15,7 +15,6 @@ import com.veko.common.utils.withLatestFrom
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
@@ -31,7 +30,7 @@ class WeatherRepositoryImpl(
 
     companion object {
         private const val DEFAULT_CITY = "Moscow"
-        private const val DEFAULT_EXCLUDE = "current"
+        private const val DEFAULT_EXCLUDE = "minutely,hourly,alerts"
     }
 
     init {
@@ -43,7 +42,7 @@ class WeatherRepositoryImpl(
             .onEmpty {
                 getCoords(city = DEFAULT_CITY, exclude = DEFAULT_EXCLUDE)
             }
-            .map { it.map(CityEntity::toDomainModel) }
+            .map { it.map(WeatherEntity::toDomainModel) }
 
     override suspend fun getCoords(city: String, exclude: String) {
         safeRequest {
@@ -65,7 +64,7 @@ class WeatherRepositoryImpl(
         city: String,
         lat: Double,
         lon: Double,
-        exclude: String = "current"
+        exclude: String = DEFAULT_EXCLUDE
     ) {
         safeRequest {
             api.getWeather(lat, lon, exclude)
@@ -91,8 +90,8 @@ class WeatherRepositoryImpl(
                 .map { (entities, _) -> entities }
                 .onEmpty { cancel() }
                 .collectLatest { entities ->
-                    entities.forEach {city ->
-                        getWeather(city = city.latestWeather.city, lat = city.lat, lon = city.lon)
+                    entities.forEach { city ->
+                        getWeather(city = city.latest.city, lat = city.lat, lon = city.lon)
                     }
                     cancel()
                 }

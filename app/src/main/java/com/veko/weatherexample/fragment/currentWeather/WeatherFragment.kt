@@ -1,4 +1,4 @@
-package com.veko.weatherexample.fragment.weather
+package com.veko.weatherexample.fragment.currentWeather
 
 import android.os.Bundle
 import android.view.View
@@ -8,9 +8,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.veko.weatherexample.R
-import com.veko.weatherexample.databinding.FragmentListCityBinding
-import com.veko.weatherexample.fragment.weather.rv.WeatherAdapter
-import com.veko.weatherexample.fragment.weather.rv.WeatherItems
+import com.veko.weatherexample.databinding.FragmentWeatherBinding
+import com.veko.weatherexample.fragment.currentWeather.rv.WeatherAdapter
+import com.veko.weatherexample.fragment.currentWeather.rv.WeatherItems
 import com.veko.weatherexample.utils.navigateTo
 import com.veko.weatherexample.utils.rv.AddCityDecoration
 import kotlinx.coroutines.flow.collectLatest
@@ -19,7 +19,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class WeatherFragment : Fragment() {
 
-    private val binding by viewBinding<FragmentListCityBinding>()
+    private val binding by viewBinding<FragmentWeatherBinding>()
 
     private val viewModel by viewModel<WeatherViewModel>()
 

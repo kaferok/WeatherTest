@@ -1,17 +1,13 @@
-package com.veko.data.model.getWeather.exclude
+package com.veko.data.model.getWeather
 
 import com.google.gson.annotations.SerializedName
 import com.veko.data.model.getWeather.detail.CommonWeather
 import com.veko.data.model.getWeather.detail.toEntityModel
-import com.veko.data.storage.entity.LatestWeatherEntity
+import com.veko.data.storage.entity.CurrentWeatherEntity
 
-data class ExcludeCurrent(
+data class CurrentWeatherResponse(
     @SerializedName("dt")
     val dt: Long,
-    @SerializedName("sunrise")
-    val sunrise: Long,
-    @SerializedName("sunset")
-    val sunset: Long,
     @SerializedName("temp")
     val temp: Double,
     @SerializedName("feels_like")
@@ -30,7 +26,8 @@ data class ExcludeCurrent(
     val weather: List<CommonWeather>
 )
 
-fun ExcludeCurrent.toEntityModel(city: String) = LatestWeatherEntity(
+fun CurrentWeatherResponse.toEntityModel(city: String) = CurrentWeatherEntity(
+    date = dt,
     city = city,
     temperature = temp,
     feelsLike = feelsLike,
