@@ -1,11 +1,16 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
     namespace 'com.veko.weatherexample'
     compileSdk 34
+
+    buildFeatures {
+        viewBinding true
+    }
 
     defaultConfig {
         applicationId "com.veko.weatherexample"
@@ -39,12 +44,17 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.5.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    implementation 'com.github.kirich1409:viewbindingpropertydelegate-full:1.5.8'
+
+    //Navigation
+    implementation "androidx.navigation:navigation-fragment-ktx:$dep_ver.nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$dep_ver.nav_version"
 
     // Koin
     implementation "io.insert-koin:koin-android:$dep_ver.koin_version"
+
+    //glide
+    implementation "com.github.bumptech.glide:glide:$dep_ver.glide_version"
 
     implementation project(':data')
     implementation project(':domain')

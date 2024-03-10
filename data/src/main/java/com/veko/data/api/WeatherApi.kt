@@ -17,6 +17,7 @@ interface WeatherApi {
         @Query("lat") lat: Double,
         @Query("lon") lon: Double,
         @Query("exclude") exclude: String,
-        @Query("lang") lang: String = "ru"
+        @Query("lang") lang: String = "ru",
+        @Query("units") unit: String ="metric"
     ): Result<GetWeatherResponse>
 }

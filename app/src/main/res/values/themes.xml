@@ -3,6 +3,19 @@
     <style name="Base.Theme.WeatherExample" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="textAppearanceHeadlineMedium">
+            @style/WeatherExample.TextAppearance.HeadlineLarge
+        </item>
+        <item name="textAppearanceTitleMedium">@style/WeatherExample.TextAppearance.TitleMedium
+        </item>
+        <item name="textAppearanceBodyMedium">@style/WeatherExample.TextAppearance.BodyMedium</item>
+        <item name="textAppearanceBodySmall">@style/WeatherExample.TextAppearance.BodyMedium.Small
+        </item>
+        <item name="materialButtonStyle">@style/WeatherExample.PrimaryMaterialButton</item>
+        <item name="colorOnSecondaryContainer">@color/color_primary</item>
+        <item name="colorSecondaryContainer">@color/white</item>
+        <item name="colorAccent">@color/color_primary</item>
+        <item name="android:textColorPrimary">@color/color_title</item>
     </style>
 
     <style name="Theme.WeatherExample" parent="Base.Theme.WeatherExample" />
