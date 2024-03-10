@@ -14,8 +14,8 @@ ext {
     dep_ver = [
             koin_version : "3.5.0",
             room_version : "2.6.1",
-            moshi_version: "1.14.0",
-            moshi_retrofit_version    : "2.4.0",
+            gson_version: "2.10.1",
+            gson_retrofit_version : "2.9.0",
             retrofit_version:"2.9.0",
             http_version: "4.9.0",
             logging_version: "4.10.0"

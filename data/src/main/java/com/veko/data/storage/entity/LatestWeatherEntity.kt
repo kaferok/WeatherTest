@@ -3,9 +3,13 @@ package com.veko.data.storage.entity
 import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 @Entity(tableName = "latest_weather_table")
 data class LatestWeatherEntity(
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "latest_weather_id")
+    val id: Int = 0,
     @ColumnInfo(name = "city")
     val city: String,
     @ColumnInfo(name = "temperature")

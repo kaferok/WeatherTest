@@ -19,7 +19,7 @@ android {
     buildTypes{
         debug {
             buildConfigField "String", "SERVER_URL", '"https://api.openweathermap.org"'
-            buildConfigField "String", "API_KEY", '" 49190399b1b9822d1688e1d929b3947c"'
+            buildConfigField "String", "API_KEY", '"a38ec4a6528932ba6a3cdbe9f8233ac5"'
         }
     }
 
@@ -40,6 +40,7 @@ dependencies {
 
     //DB
     implementation "androidx.room:room-runtime:$dep_ver.room_version"
+    implementation "androidx.room:room-ktx:$dep_ver.room_version"
     annotationProcessor "androidx.room:room-compiler:$dep_ver.room_version"
     // To use Kotlin annotation processing tool (kapt)
     kapt "androidx.room:room-compiler:$dep_ver.room_version"
@@ -48,17 +49,23 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$dep_ver.retrofit_version"
     implementation "com.squareup.okhttp3:logging-interceptor:$dep_ver.logging_version"
     implementation "com.squareup.okhttp3:okhttp:$dep_ver.http_version"
-    kapt "com.squareup.moshi:moshi-kotlin-codegen:$dep_ver.moshi_version"
-    implementation "com.squareup.retrofit2:converter-moshi:$dep_ver.moshi_retrofit_version"
-    implementation "com.squareup.moshi:moshi-kotlin:$dep_ver.moshi_version"
+    implementation "com.google.code.gson:gson:$dep_ver.gson_version"
+    api "com.squareup.retrofit2:converter-gson:$dep_ver.gson_retrofit_version"
 
     //DI
     implementation "io.insert-koin:koin-android:$dep_ver.koin_version"
+    testImplementation "io.insert-koin:koin-test:$dep_ver.koin_version"
+    // Needed JUnit version
+    testImplementation "io.insert-koin:koin-test-junit4:$dep_ver.koin_version"
 
     //Test
+    implementation 'androidx.test:core-ktx:1.5.0'
+    testImplementation("com.squareup.okhttp3:mockwebserver:4.12.0")
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0"
     testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    androidTestImplementation "com.android.support.test:runner:1.0.2"
+    androidTestImplementation "com.android.support.test:rules:1.0.2"
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
     implementation(project(":domain"))
 }

@@ -1,18 +1,18 @@
 package com.veko.data.model.getWeather
 
-import com.squareup.moshi.Json
+import com.google.gson.annotations.SerializedName
 import com.veko.data.model.getWeather.exclude.ExcludeCurrent
 import com.veko.data.model.getWeather.exclude.toEntityModel
 import com.veko.data.storage.entity.CityEntity
 
 data class GetWeatherResponse(
-    @Json(name = "lat")
+    @SerializedName("lat")
     val lat: Double,
-    @Json(name = "lon")
+    @SerializedName("lon")
     val lon: Double,
-    @Json(name = "timeZone")
+    @SerializedName("timeZone")
     val tineZone: String,
-    @Json(name = "current")
+    @SerializedName("current")
     val current: ExcludeCurrent
 )
 

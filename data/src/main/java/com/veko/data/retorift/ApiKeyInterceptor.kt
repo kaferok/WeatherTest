@@ -7,14 +7,15 @@ import okhttp3.Response
 class ApiKeyInterceptor : Interceptor {
 
     companion object {
-        private const val API_QUERY = "apiKey"
+        private const val API_QUERY = "appid"
     }
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val originalRequest = chain.request()
-        val newUrl = originalRequest.url.apply {
-            queryParameter("$API_QUERY=${BuildConfig.API_KEY}")
-        }
+        val newUrl = originalRequest.url.newBuilder().apply {
+            addQueryParameter(API_QUERY, BuildConfig.API_KEY)
+        }.build()
+
         val newRequest = originalRequest.newBuilder()
             .url(newUrl)
             .build()
