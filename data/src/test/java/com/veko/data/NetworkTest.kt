@@ -1,23 +1,23 @@
 package com.veko.data
 
-import android.content.Context
-import com.veko.data.di.dataModule
-import com.veko.domain.useCase.WeatherUseCase
+import com.veko.data.api.WeatherApi
+import com.veko.data.retorift.ApiKeyInterceptor
+import com.veko.data.retorift.RetrofitBuilder
+import com.veko.data.utils.doOnError
+import com.veko.data.utils.doOnSuccess
 import kotlinx.coroutines.test.runTest
+import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
+import okhttp3.mockwebserver.RecordedRequest
 import org.junit.After
 import org.junit.Test
 import org.junit.Assert.*
 import org.junit.Before
-import org.junit.Rule
 import org.koin.core.context.GlobalContext.stopKoin
-import org.koin.core.logger.Level
 import org.koin.test.KoinTest
-import org.koin.test.KoinTestRule
-import org.koin.test.check.checkModules
-import org.koin.test.mock.MockProviderRule
-import org.koin.test.mock.declareMock
-import org.mockito.Mockito.mock
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 
 /**
@@ -29,41 +29,44 @@ class NetworkTest : KoinTest {
 
     private val serverMock = MockWebServer()
 
-    @get:Rule
-    val koinTestRule = KoinTestRule.create {
-        printLogger(Level.DEBUG)
-        modules(dataModule)
-        checkModules(){
-            withInstance<Context>()
-        }
-    }
-
-    @get:Rule
-    val mockProvider = MockProviderRule.create { clazz ->
-        mock(clazz.java)
-    }
-
-    @Before
-    fun setup() {
-        serverMock.apply {
-            url("/")
-        }
+    private val weatherApi by lazy {
+        Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl(serverMock.url("/"))
+            .client(
+                RetrofitBuilder.buildHttpClient(
+                    ApiKeyInterceptor(),
+                    RetrofitBuilder.getLoggingInterceptor()
+                ).build()
+            )
+            .build()
+            .create(WeatherApi::class.java)
     }
 
     @Test
     fun Test_get_coordinates_by_city_request() = runTest {
-        val repository = declareMock<WeatherUseCase> {
-            givenSuspended {
-                getCoords(
-                    "Москва",
-                    "current"
-                )
-            } willReturn { FileReader().readFile("success_weather_response.json") }
-        }
         serverMock.dispatcher = MockWebServerDispatchers().CoordsRequestDispatcher()
-        val mockResponse = serverMock.takeRequest()
 
-        assertEquals(mockResponse.body, repository.getCoords("Москва", "current"))
+        weatherApi.getCoordsByCity(city = "Moscow")
+
+        val request = serverMock.takeRequest(3000L, TimeUnit.MILLISECONDS)
+        checkRequest(request)
+    }
+
+    @Test
+    fun Test_get_weather() = runTest {
+        serverMock.dispatcher = MockWebServerDispatchers().WeatherRequestDispatcher()
+
+        weatherApi.getWeather(lat = 55.7504, lon = 37.6175, exclude = "current")
+
+        val request = serverMock.takeRequest(3000L, TimeUnit.MILLISECONDS)
+        checkRequest(request)
+    }
+
+    private fun checkRequest(request: RecordedRequest?) {
+        assertTrue(request != null)
+        assertNotEquals(request?.requestUrl, null)
+        assertEquals(request?.requestUrl?.queryParameter("appid"), BuildConfig.API_KEY)
     }
 
     @After

@@ -1,16 +1,16 @@
 package com.veko.data.model.getWeather.detail
 
-import com.squareup.moshi.Json
+import com.google.gson.annotations.SerializedName
 import com.veko.data.storage.entity.CommonWeatherEntity
 
 data class CommonWeather(
-    @Json(name = "id")
+    @SerializedName("id")
     val id: Int,
-    @Json(name = "main")
+    @SerializedName("main")
     val main: String,
-    @Json(name = "description")
+    @SerializedName("description")
     val description: String,
-    @Json(name = "icon")
+    @SerializedName("icon")
     val icon: String
 )
 

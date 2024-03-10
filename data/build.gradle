@@ -49,9 +49,8 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$dep_ver.retrofit_version"
     implementation "com.squareup.okhttp3:logging-interceptor:$dep_ver.logging_version"
     implementation "com.squareup.okhttp3:okhttp:$dep_ver.http_version"
-    kapt "com.squareup.moshi:moshi-kotlin-codegen:$dep_ver.moshi_version"
-    implementation "com.squareup.retrofit2:converter-moshi:$dep_ver.moshi_retrofit_version"
-    implementation "com.squareup.moshi:moshi-kotlin:$dep_ver.moshi_version"
+    implementation "com.google.code.gson:gson:$dep_ver.gson_version"
+    api "com.squareup.retrofit2:converter-gson:$dep_ver.gson_retrofit_version"
 
     //DI
     implementation "io.insert-koin:koin-android:$dep_ver.koin_version"
@@ -62,7 +61,6 @@ dependencies {
     //Test
     implementation 'androidx.test:core-ktx:1.5.0'
     testImplementation("com.squareup.okhttp3:mockwebserver:4.12.0")
-    testImplementation "org.mockito:mockito-core:3.12.4"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0"
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation "com.android.support.test:runner:1.0.2"

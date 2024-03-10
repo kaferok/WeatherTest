@@ -1,32 +1,32 @@
 package com.veko.data.model.getWeather.exclude
 
-import com.squareup.moshi.Json
+import com.google.gson.annotations.SerializedName
 import com.veko.data.model.getWeather.detail.CommonWeather
 import com.veko.data.model.getWeather.detail.toEntityModel
 import com.veko.data.storage.entity.LatestWeatherEntity
 
 data class ExcludeCurrent(
-    @Json(name = "dt")
+    @SerializedName("dt")
     val dt: Long,
-    @Json(name = "sunrise")
+    @SerializedName("sunrise")
     val sunrise: Long,
-    @Json(name = "sunset")
+    @SerializedName("sunset")
     val sunset: Long,
-    @Json(name = "temp")
+    @SerializedName("temp")
     val temp: Double,
-    @Json(name = "feels_like")
+    @SerializedName("feels_like")
     val feelsLike: Double,
-    @Json(name = "pressure")
+    @SerializedName("pressure")
     val pressure: Int,
-    @Json(name = "humidity")
+    @SerializedName("humidity")
     val humidity: Int,
-    @Json(name = "clouds")
+    @SerializedName("clouds")
     val clouds: Int,
-    @Json(name = "visibility")
+    @SerializedName("visibility")
     val visibility: Int,
-    @Json(name = "wind_speed")
+    @SerializedName("wind_speed")
     val windSpeed: Double,
-    @Json(name = "weather")
+    @SerializedName("weather")
     val weather: List<CommonWeather>
 )
 

@@ -1,12 +1,12 @@
 package com.veko.data.model.getCoords
 
-import com.squareup.moshi.Json
+import com.google.gson.annotations.SerializedName
 
 data class GetCoordsByCityResponse(
-    @Json(name = "lat")
+    @SerializedName("lat")
     val lat: Double,
-    @Json(name = "lon")
+    @SerializedName("lon")
     val lon: Double,
-    @Json(name = "name")
+    @SerializedName("name")
     val name: String
 )
