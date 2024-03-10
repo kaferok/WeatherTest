@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:textAppearance="@style/WeatherExample.TextAppearance.HeadlineLarge"
+            android:textAppearance="@style/TextAppearance.Material3.HeadlineMedium"
             app:layout_constraintBottom_toBottomOf="@id/imgWeather"
             app:layout_constraintStart_toEndOf="@id/imgWeather"
             app:layout_constraintTop_toTopOf="@id/imgWeather" />
@@ -39,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:textAppearance="@style/WeatherExample.TextAppearance.TitleMedium"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
             app:layout_constraintStart_toEndOf="@id/tvTemperature"
             app:layout_constraintTop_toTopOf="@id/imgWeather" />
 
@@ -66,7 +66,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginTop="12dp"
-            android:background="@color/black"
+            android:background="@color/color_primary"
             app:layout_constraintTop_toBottomOf="@id/tvFeelsLike" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -83,7 +83,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:text="@string/pressure"
-                android:textAppearance="@style/WeatherExample.TextAppearance.BodyMedium"
+                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -93,7 +93,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:text="@string/humidity"
-                android:textAppearance="@style/WeatherExample.TextAppearance.BodyMedium"
+                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
                 app:layout_constraintStart_toStartOf="@id/tvPressure"
                 app:layout_constraintTop_toBottomOf="@id/tvPressure" />
 
@@ -103,7 +103,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:text="@string/visibility"
-                android:textAppearance="@style/WeatherExample.TextAppearance.BodyMedium"
+                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
                 app:layout_constraintStart_toStartOf="@id/tvPressure"
                 app:layout_constraintTop_toBottomOf="@id/tvHumidity" />
 
@@ -114,7 +114,7 @@
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="8dp"
                 android:text="@string/wind_speed"
-                android:textAppearance="@style/WeatherExample.TextAppearance.BodyMedium"
+                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@id/tvPressure"
                 app:layout_constraintTop_toBottomOf="@id/tvVisibility" />

@@ -2,14 +2,15 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_graph"
-    app:startDestination="@id/fragmentListCity">
+    app:startDestination="@id/fragmentWeather">
 
     <fragment
-        android:id="@+id/fragmentListCity"
-        android:name="com.veko.weatherexample.fragment.listCity.ListCityFragment">
+        android:id="@+id/fragmentWeather"
+        android:name="com.veko.weatherexample.fragment.weather.WeatherFragment">
         <action
-            android:id="@+id/actionToListCity"
-            app:destination="@id/dialogAddCity" />
+            android:id="@+id/actionToAddCity"
+            app:destination="@id/dialogAddCity"
+            app:popUpTo="@id/fragmentWeather" />
     </fragment>
 
     <dialog

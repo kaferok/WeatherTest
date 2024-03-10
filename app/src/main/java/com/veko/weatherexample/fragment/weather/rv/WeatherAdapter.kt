@@ -1,4 +1,4 @@
-package com.veko.weatherexample.fragment.listCity.rv
+package com.veko.weatherexample.fragment.weather.rv
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,13 +6,13 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.veko.weatherexample.databinding.ItemAddCityBinding
 import com.veko.weatherexample.databinding.ItemCityBinding
-import com.veko.weatherexample.fragment.listCity.rv.holders.AddCityViewHolder
-import com.veko.weatherexample.fragment.listCity.rv.holders.CityViewHolder
+import com.veko.weatherexample.fragment.weather.rv.holders.AddCityViewHolder
+import com.veko.weatherexample.fragment.weather.rv.holders.WeatherViewHolder
 
-class ListCityAdapter(
-    private val onArrowClick: (ListCityItems.Weather) -> Unit,
+class WeatherAdapter(
+    private val onArrowClick: (WeatherItems.Weather) -> Unit,
     private val onAddClick: () -> Unit
-) : ListAdapter<ListCityItems, RecyclerView.ViewHolder>(ListCityDiffUtils()) {
+) : ListAdapter<WeatherItems, RecyclerView.ViewHolder>(WeatherDiffUtils()) {
 
     companion object {
         private const val CITY = 0
@@ -21,7 +21,7 @@ class ListCityAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when (viewType) {
-            CITY -> CityViewHolder(
+            CITY -> WeatherViewHolder(
                 binding = ItemCityBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
@@ -44,13 +44,13 @@ class ListCityAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (val item = getItem(position)) {
-            is ListCityItems.Weather -> (holder as? CityViewHolder)?.bind(item)
-            is ListCityItems.AddButton -> (holder as? AddCityViewHolder)?.bind(item)
+            is WeatherItems.Weather -> (holder as? WeatherViewHolder)?.bind(item)
+            is WeatherItems.AddButton -> (holder as? AddCityViewHolder)?.bind(item)
         }
     }
 
     override fun getItemViewType(position: Int): Int = when (getItem(position)) {
-        is ListCityItems.Weather -> CITY
-        is ListCityItems.AddButton -> ADD_CITY
+        is WeatherItems.Weather -> CITY
+        is WeatherItems.AddButton -> ADD_CITY
     }
 }

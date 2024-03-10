@@ -1,11 +1,11 @@
 <resources>
     <string name="app_name">WeatherExample</string>
-    <string name="c">°C</string>
-    <string name="feels_like">Ощущается как</string>
-    <string name="pressure">Давление:</string>
-    <string name="humidity">Влажность:</string>
-    <string name="visibility">Видимость:</string>
-    <string name="wind_speed">Скорость ветра:</string>
+    <string name="c">%s°C</string>
+    <string name="feels_like">Ощущается как %s °C</string>
+    <string name="pressure">Давление: %s hPa</string>
+    <string name="humidity">Влажность: %s %</string>
+    <string name="visibility">Видимость: %s м</string>
+    <string name="wind_speed">Скорость ветра: %s м/с</string>
     <string name="add_city">Добавить город</string>
     <string name="city_name">Название города</string>
     <string name="add">Добавить</string>

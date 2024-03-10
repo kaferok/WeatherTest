@@ -8,7 +8,7 @@ import com.veko.data.storage.entity.toDomainModel
 import com.veko.data.utils.doOnSuccess
 import com.veko.data.utils.safeRequest
 import com.veko.domain.model.Weather
-import com.veko.domain.useCase.WeatherUseCase
+import com.veko.domain.repository.WeatherRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -19,7 +19,7 @@ class WeatherRepositoryImpl(
     private val api: WeatherApi,
     private val weatherDao: WeatherDao,
     private val coroutineScope: CoroutineScope
-) : WeatherUseCase {
+) : WeatherRepository {
 
     companion object {
         private const val DEFAULT_CITY = "Москва"

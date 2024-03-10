@@ -6,6 +6,7 @@ import com.veko.data.repository.WeatherRepositoryImpl
 import com.veko.data.retorift.ApiKeyInterceptor
 import com.veko.data.retorift.RetrofitBuilder
 import com.veko.data.storage.WeatherDatabase
+import com.veko.domain.repository.WeatherRepository
 import com.veko.domain.useCase.WeatherUseCase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -25,7 +26,7 @@ val dataModule = module {
     single { WeatherDatabase.getInstance(androidContext()) }
     single { get<WeatherDatabase>().weatherDao() }
 
-    single<WeatherUseCase> { WeatherRepositoryImpl(get(), get(), get()) }
+    single<WeatherRepository> { WeatherRepositoryImpl(get(), get(), get()) }
 
     single { AppDispatchers }
 

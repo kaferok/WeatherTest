@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
@@ -51,6 +52,9 @@ dependencies {
 
     // Koin
     implementation "io.insert-koin:koin-android:$dep_ver.koin_version"
+
+    //glide
+    implementation "com.github.bumptech.glide:glide:$dep_ver.glide_version"
 
     implementation project(':data')
     implementation project(':domain')
