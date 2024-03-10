@@ -6,9 +6,13 @@
     <string name="humidity">Влажность: %s %</string>
     <string name="visibility">Видимость: %s м</string>
     <string name="wind_speed">Скорость ветра: %s м/с</string>
+
     <string name="add_city">Добавить город</string>
     <string name="city_name">Название города</string>
     <string name="add">Добавить</string>
     <string name="cancel">Отмена</string>
+
+    <string name="no_connection">Нет подключения</string>
+
     <string name="available_char_city">АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя -</string>
 </resources>

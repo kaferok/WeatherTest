@@ -1,6 +1,7 @@
 package com.veko.weatherexample
 
 import android.app.Application
+import com.veko.common.di.commonModule
 import com.veko.data.di.dataModule
 import com.veko.domain.di.domainModule
 import com.veko.weatherexample.di.presenterModule
@@ -19,7 +20,7 @@ class WeatherApplication : Application() {
         startKoin {
             androidLogger()
             androidContext(this@WeatherApplication)
-            modules(dataModule, domainModule, presenterModule)
+            modules(dataModule, domainModule, commonModule, presenterModule)
         }
     }
 }

@@ -2,14 +2,14 @@ package com.veko.data.di
 
 import com.veko.data.AppDispatchers
 import com.veko.data.api.WeatherApi
+import com.veko.common.connection.ConnectionManager
 import com.veko.data.repository.WeatherRepositoryImpl
 import com.veko.data.retorift.ApiKeyInterceptor
 import com.veko.data.retorift.RetrofitBuilder
 import com.veko.data.storage.WeatherDatabase
 import com.veko.domain.repository.WeatherRepository
-import com.veko.domain.useCase.WeatherUseCase
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
@@ -26,11 +26,11 @@ val dataModule = module {
     single { WeatherDatabase.getInstance(androidContext()) }
     single { get<WeatherDatabase>().weatherDao() }
 
-    single<WeatherRepository> { WeatherRepositoryImpl(get(), get(), get()) }
+    single<WeatherRepository> { WeatherRepositoryImpl(get(), get(), get(), get()) }
 
     single { AppDispatchers }
 
     single {
-        CoroutineScope(Job() + get<AppDispatchers>().io)
+        CoroutineScope(SupervisorJob() + get<AppDispatchers>().io)
     }
 }

@@ -3,14 +3,12 @@ package com.veko.data.storage.entity
 import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 import com.veko.domain.model.Weather
 
-@Entity(tableName = "city_table")
+@Entity(tableName = "city_table", primaryKeys = ["lon", "lat"])
 data class CityEntity(
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id")
-    val id: Int = 0,
     @ColumnInfo(name = "lon")
     val lon: Double,
     @ColumnInfo(name = "lat")
