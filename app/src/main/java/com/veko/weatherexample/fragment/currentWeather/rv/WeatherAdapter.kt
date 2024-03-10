@@ -1,13 +1,14 @@
-package com.veko.weatherexample.fragment.weather.rv
+package com.veko.weatherexample.fragment.currentWeather.rv
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.veko.domain.model.CurrentWeather
 import com.veko.weatherexample.databinding.ItemAddCityBinding
-import com.veko.weatherexample.databinding.ItemCityBinding
-import com.veko.weatherexample.fragment.weather.rv.holders.AddCityViewHolder
-import com.veko.weatherexample.fragment.weather.rv.holders.WeatherViewHolder
+import com.veko.weatherexample.databinding.ItemCurrentWeatherBinding
+import com.veko.weatherexample.fragment.currentWeather.rv.holders.AddCityViewHolder
+import com.veko.weatherexample.fragment.currentWeather.rv.holders.WeatherViewHolder
 
 class WeatherAdapter(
     private val onArrowClick: (WeatherItems.Weather) -> Unit,
@@ -22,7 +23,7 @@ class WeatherAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         when (viewType) {
             CITY -> WeatherViewHolder(
-                binding = ItemCityBinding.inflate(
+                binding = ItemCurrentWeatherBinding.inflate(
                     LayoutInflater.from(parent.context),
                     parent,
                     false
@@ -46,6 +47,19 @@ class WeatherAdapter(
         when (val item = getItem(position)) {
             is WeatherItems.Weather -> (holder as? WeatherViewHolder)?.bind(item)
             is WeatherItems.AddButton -> (holder as? AddCityViewHolder)?.bind(item)
+        }
+    }
+
+    override fun onBindViewHolder(
+        holder: RecyclerView.ViewHolder,
+        position: Int,
+        payloads: MutableList<Any>
+    ) {
+        payloads.firstOrNull()?.let { payload ->
+            when (payload) {
+                is WeatherItems.Weather -> (holder as WeatherViewHolder).bindPayload(payload)
+                else -> super.onBindViewHolder(holder, position, payloads)
+            }
         }
     }
 

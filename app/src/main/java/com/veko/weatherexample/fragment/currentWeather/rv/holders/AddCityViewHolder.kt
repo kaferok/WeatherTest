@@ -1,8 +1,8 @@
-package com.veko.weatherexample.fragment.weather.rv.holders
+package com.veko.weatherexample.fragment.currentWeather.rv.holders
 
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.veko.weatherexample.databinding.ItemAddCityBinding
-import com.veko.weatherexample.fragment.weather.rv.WeatherItems
+import com.veko.weatherexample.fragment.currentWeather.rv.WeatherItems
 
 class AddCityViewHolder(
     private val binding: ItemAddCityBinding,

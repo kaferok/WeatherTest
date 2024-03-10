@@ -1,6 +1,6 @@
-package com.veko.weatherexample.fragment.weather
+package com.veko.weatherexample.fragment.currentWeather
 
-import com.veko.weatherexample.fragment.weather.rv.WeatherItems
+import com.veko.weatherexample.fragment.currentWeather.rv.WeatherItems
 import com.veko.weatherexample.utils.ViewState
 
 data class WeatherViewState(

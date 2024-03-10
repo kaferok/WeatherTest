@@ -13,6 +13,10 @@ class AddCityDecoration(private val bottom: Int) : ItemDecoration() {
         parent: RecyclerView,
         state: RecyclerView.State
     ) {
-        super.getItemOffsets(outRect, view, parent, state)
+        val position = parent.getChildAdapterPosition(view)
+        val size = parent.adapter?.itemCount
+        if (position == size) {
+            outRect.bottom = bottom
+        }
     }
 }

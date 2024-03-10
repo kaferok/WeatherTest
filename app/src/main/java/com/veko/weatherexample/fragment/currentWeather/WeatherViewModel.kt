@@ -1,10 +1,10 @@
-package com.veko.weatherexample.fragment.weather
+package com.veko.weatherexample.fragment.currentWeather
 
 import androidx.lifecycle.viewModelScope
 import com.veko.domain.model.Weather
 import com.veko.domain.useCase.WeatherUseCase
 import com.veko.weatherexample.R
-import com.veko.weatherexample.fragment.weather.rv.WeatherItems
+import com.veko.weatherexample.fragment.currentWeather.rv.WeatherItems
 import com.veko.weatherexample.utils.BaseViewModel
 import com.veko.weatherexample.utils.ResourceProvider
 import kotlinx.coroutines.flow.collectLatest
@@ -52,33 +52,33 @@ class WeatherViewModel(
     private fun buildItems(weather: List<Weather>): List<WeatherItems> {
         return weather.map { weatherItem ->
             WeatherItems.Weather(
-                icon = weatherItem.weatherDescription?.icon.orEmpty(),
+                icon = weatherItem.currentWeather.weatherDescription?.icon.orEmpty(),
                 city = weatherItem.city,
                 temperature = resourceProvider.getString(
                     R.string.c,
-                    weatherItem.temperature.toString()
+                    weatherItem.currentWeather.temperature.toString()
                 ),
                 feelsLike = resourceProvider.getString(
                     R.string.feels_like,
-                    weatherItem.feelsLike.toString()
+                    weatherItem.currentWeather.feelsLike.toString()
                 ),
                 pressure = resourceProvider.getString(
                     R.string.pressure,
-                    weatherItem.pressure.toString()
+                    weatherItem.currentWeather.pressure.toString()
                 ),
                 humidity = resourceProvider.getString(
                     R.string.humidity,
-                    weatherItem.humidity.toString()
+                    weatherItem.currentWeather.humidity.toString()
                 ),
                 visibility = resourceProvider.getString(
                     R.string.visibility,
-                    weatherItem.visibility.toString()
+                    weatherItem.currentWeather.visibility.toString()
                 ),
                 windSpeed = resourceProvider.getString(
                     R.string.wind_speed,
-                    weatherItem.windSpeed.toString()
+                    weatherItem.currentWeather.windSpeed.toString()
                 ),
-                main = weatherItem.weatherDescription?.main.orEmpty(),
+                main = weatherItem.currentWeather.weatherDescription?.main.orEmpty(),
             )
         } + listOf(WeatherItems.AddButton)
     }

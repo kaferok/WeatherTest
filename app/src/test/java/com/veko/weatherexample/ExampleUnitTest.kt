@@ -1,5 +1,6 @@
 package com.veko.weatherexample
 
+import com.veko.domain.utils.DateUtils
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -9,9 +10,13 @@ import org.junit.Assert.*
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
-class ExampleUnitTest {
+class DateUnitTest {
+    private val dateUtils = DateUtils()
+
     @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+    fun check_date_formatter() {
+        val timeMillis = 1710097575110
+        val formattedDate = dateUtils.formatOperation(timeMillis, -18000)
+        assertEquals("март 10", formattedDate)
     }
 }
