@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/fragmentListCity">
+
+    <fragment
+        android:id="@+id/fragmentListCity"
+        android:name="com.veko.weatherexample.fragment.listCity.ListCityFragment">
+        <action
+            android:id="@+id/actionToListCity"
+            app:destination="@id/dialogAddCity" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/dialogAddCity"
+        android:name="com.veko.weatherexample.fragment.addCity.AddCityDialogFragment" />
+</navigation>
