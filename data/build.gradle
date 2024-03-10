@@ -54,9 +54,6 @@ dependencies {
 
     //DI
     implementation "io.insert-koin:koin-android:$dep_ver.koin_version"
-    testImplementation "io.insert-koin:koin-test:$dep_ver.koin_version"
-    // Needed JUnit version
-    testImplementation "io.insert-koin:koin-test-junit4:$dep_ver.koin_version"
 
     //Test
     implementation 'androidx.test:core-ktx:1.5.0'
@@ -68,4 +65,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
     implementation(project(":domain"))
+    implementation(project(":common"))
 }
