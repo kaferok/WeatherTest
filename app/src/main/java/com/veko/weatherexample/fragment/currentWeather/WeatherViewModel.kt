@@ -9,11 +9,12 @@ import com.veko.weatherexample.utils.BaseViewModel
 import com.veko.weatherexample.utils.ResourceProvider
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEmpty
 import kotlinx.coroutines.launch
 
 class WeatherViewModel(
     private val weatherUseCase: WeatherUseCase,
-    private val resourceProvider: ResourceProvider
+    private val resourceProvider: ResourceProvider,
 ) : BaseViewModel<WeatherViewState, WeatherViewAction>(
     initState = WeatherViewState()
 ) {
@@ -42,9 +43,10 @@ class WeatherViewModel(
     private fun observeWeather() {
         viewModelScope.launch {
             weatherUseCase.observeCityWeather()
+                .onEmpty { reduceState { oldState -> oldState.copy(loading = true) } }
                 .map { buildItems(it) }
                 .collectLatest {
-                    reduceState { oldState -> oldState.copy(weather = it) }
+                    reduceState { oldState -> oldState.copy(weather = it, loading = false) }
                 }
         }
     }

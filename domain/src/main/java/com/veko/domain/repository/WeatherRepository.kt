@@ -7,4 +7,6 @@ interface WeatherRepository {
     fun observeCityWeather(): Flow<List<Weather>>
 
     suspend fun getCoords(city: String, exclude: String)
+
+    suspend fun checkCityExist(city: String):Boolean
 }

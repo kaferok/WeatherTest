@@ -17,5 +17,10 @@
 
     <string name="no_connection">Нет подключения</string>
 
+    <string name="city_exist">Введеный город уже добавлен</string>
+    <string name="to_many_requests">Превышен лимит запросов</string>
+    <string name="not_found">Запрошенный город не найден</string>
+    <string name="common">Что-то пошло не так :(</string>
+
     <string name="available_char_city">АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдеёжзийклмнопрстуфхцчшщъыьэюя -</string>
 </resources>
