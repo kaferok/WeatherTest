@@ -19,3 +19,4 @@ DI: Koin
 БД: Room
 Сеть: Retrofit + API (http://openweathermap.org/API)
 Тест сети: MockWebServer 
+Design by kaferok :)
