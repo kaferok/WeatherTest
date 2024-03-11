@@ -3,18 +3,13 @@ package com.veko.data
 import com.veko.data.api.WeatherApi
 import com.veko.data.retorift.ApiKeyInterceptor
 import com.veko.data.retorift.RetrofitBuilder
-import com.veko.data.utils.doOnError
-import com.veko.data.utils.doOnSuccess
 import kotlinx.coroutines.test.runTest
-import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import okhttp3.mockwebserver.RecordedRequest
 import org.junit.After
 import org.junit.Test
 import org.junit.Assert.*
-import org.junit.Before
 import org.koin.core.context.GlobalContext.stopKoin
-import org.koin.test.KoinTest
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
@@ -25,7 +20,7 @@ import java.util.concurrent.TimeUnit
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
-class NetworkTest : KoinTest {
+class NetworkTest {
 
     private val serverMock = MockWebServer()
 

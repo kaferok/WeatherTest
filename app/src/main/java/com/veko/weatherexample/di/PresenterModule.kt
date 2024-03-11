@@ -13,8 +13,8 @@ val presenterModule = module {
 
     single { ResourceProvider(androidContext()) }
 
-    viewModel { WeatherViewModel(get(), get()) }
-    viewModel { AddCityViewModel(get(),get(),get()) }
+    viewModel { WeatherViewModel(get(), get(), get()) }
+    viewModel { AddCityViewModel(get(), get(), get(), get()) }
     viewModel { WeatherActivityViewModel(get()) }
-    viewModel { DailyViewModel(get(), get()) }
+    viewModel { (parameter: String) -> DailyViewModel(parameter, get(), get(), get()) }
 }

@@ -15,8 +15,8 @@ class DateUnitTest {
 
     @Test
     fun check_date_formatter() {
-        val timeMillis = 1710097575110
-        val formattedDate = dateUtils.formatOperation(timeMillis, -18000)
-        assertEquals("март 10", formattedDate)
+        val timeMillis = 1710154800L
+        val formattedDate = dateUtils.formatDailyWeather(timeMillis, -18000)
+        assertEquals("март 11", formattedDate)
     }
 }

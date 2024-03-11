@@ -3,6 +3,7 @@ package com.veko.weatherexample.fragment.currentWeather
 import androidx.lifecycle.viewModelScope
 import com.veko.domain.model.Weather
 import com.veko.domain.useCase.WeatherUseCase
+import com.veko.domain.utils.DateUtils
 import com.veko.weatherexample.R
 import com.veko.weatherexample.fragment.currentWeather.rv.WeatherItems
 import com.veko.weatherexample.utils.BaseViewModel
@@ -10,11 +11,14 @@ import com.veko.weatherexample.utils.ResourceProvider
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEmpty
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
+import kotlin.math.roundToInt
 
 class WeatherViewModel(
     private val weatherUseCase: WeatherUseCase,
     private val resourceProvider: ResourceProvider,
+    private val dateUtils: DateUtils
 ) : BaseViewModel<WeatherViewState, WeatherViewAction>(
     initState = WeatherViewState()
 ) {
@@ -40,10 +44,16 @@ class WeatherViewModel(
         reduceState { oldState -> oldState.copy(weather = updatedItems) }
     }
 
+    fun onItemClicked(item: WeatherItems.Weather) {
+        viewModelScope.launch {
+            sendAction(WeatherViewAction.OpenDaily(item.city))
+        }
+    }
+
     private fun observeWeather() {
         viewModelScope.launch {
             weatherUseCase.observeCityWeather()
-                .onEmpty { reduceState { oldState -> oldState.copy(loading = true) } }
+                .onStart { reduceState { oldState -> oldState.copy(loading = true) } }
                 .map { buildItems(it) }
                 .collectLatest {
                     reduceState { oldState -> oldState.copy(weather = it, loading = false) }
@@ -58,11 +68,11 @@ class WeatherViewModel(
                 city = weatherItem.city,
                 temperature = resourceProvider.getString(
                     R.string.c,
-                    weatherItem.currentWeather.temperature.toString()
+                    weatherItem.currentWeather.temperature.roundToInt().toString()
                 ),
                 feelsLike = resourceProvider.getString(
                     R.string.feels_like,
-                    weatherItem.currentWeather.feelsLike.toString()
+                    weatherItem.currentWeather.feelsLike.roundToInt().toString()
                 ),
                 pressure = resourceProvider.getString(
                     R.string.pressure,
@@ -81,6 +91,10 @@ class WeatherViewModel(
                     weatherItem.currentWeather.windSpeed.toString()
                 ),
                 main = weatherItem.currentWeather.weatherDescription?.main.orEmpty(),
+                date = dateUtils.formatCurrentWeather(
+                    weatherItem.currentWeather.date,
+                    weatherItem.timeZoneOffset
+                )
             )
         } + listOf(WeatherItems.AddButton)
     }

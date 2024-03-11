@@ -12,7 +12,8 @@ import com.veko.weatherexample.fragment.currentWeather.rv.holders.WeatherViewHol
 
 class WeatherAdapter(
     private val onArrowClick: (WeatherItems.Weather) -> Unit,
-    private val onAddClick: () -> Unit
+    private val onAddClick: () -> Unit,
+    private val onItemClick: (WeatherItems.Weather) -> Unit
 ) : ListAdapter<WeatherItems, RecyclerView.ViewHolder>(WeatherDiffUtils()) {
 
     companion object {
@@ -28,7 +29,8 @@ class WeatherAdapter(
                     parent,
                     false
                 ),
-                onArrowClick = onArrowClick
+                onArrowClick = onArrowClick,
+                onItemClick = onItemClick
             )
 
             ADD_CITY -> AddCityViewHolder(
@@ -61,6 +63,7 @@ class WeatherAdapter(
                 else -> super.onBindViewHolder(holder, position, payloads)
             }
         }
+        super.onBindViewHolder(holder, position, payloads)
     }
 
     override fun getItemViewType(position: Int): Int = when (getItem(position)) {

@@ -18,4 +18,7 @@ interface WeatherDao {
 
     @Query("SELECT EXISTS(SELECT* FROM CITY_TABLE WHERE city = :city)")
     suspend fun isCityExist(city: String): Boolean
+
+    @Query("SELECT (SELECT COUNT(*) FROM CITY_TABLE) == 0")
+    suspend fun isEmpty():Boolean
 }

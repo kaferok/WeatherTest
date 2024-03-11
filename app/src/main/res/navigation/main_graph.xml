@@ -7,10 +7,25 @@
     <fragment
         android:id="@+id/fragmentWeather"
         android:name="com.veko.weatherexample.fragment.currentWeather.WeatherFragment">
+
         <action
             android:id="@+id/actionToAddCity"
             app:destination="@id/dialogAddCity"
             app:popUpTo="@id/fragmentWeather" />
+
+        <action
+            android:id="@+id/actionToDailyWeather"
+            app:destination="@id/fragmentDailyWeather" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragmentDailyWeather"
+        android:name="com.veko.weatherexample.fragment.dailyWeather.DailyFragment">
+        <argument
+            android:name="city"
+            android:defaultValue=""
+            app:argType="string"
+            app:nullable="false" />
     </fragment>
 
     <dialog

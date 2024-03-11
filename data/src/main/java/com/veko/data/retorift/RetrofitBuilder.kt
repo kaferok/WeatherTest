@@ -12,7 +12,7 @@ object RetrofitBuilder {
     internal fun buildHttpClient(
         apiKeyInterceptor: ApiKeyInterceptor,
         loggingInterceptor: HttpLoggingInterceptor
-    ):OkHttpClient.Builder = OkHttpClient.Builder().apply {
+    ): OkHttpClient.Builder = OkHttpClient.Builder().apply {
         addInterceptor(apiKeyInterceptor)
         addInterceptor(loggingInterceptor)
     }
@@ -25,11 +25,11 @@ object RetrofitBuilder {
         }
     }
 
-    internal fun build(client: OkHttpClient) =
+    internal fun build(client: OkHttpClient.Builder) =
         Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl(BuildConfig.SERVER_URL)
-            .client(client)
+            .client(client.build())
             .build()
 
 }

@@ -6,7 +6,7 @@
     <string name="c">%s°C</string>
     <string name="feels_like">Ощущается как %s °C</string>
     <string name="pressure">Давление: %s hPa</string>
-    <string name="humidity">Влажность: %s %</string>
+    <string name="humidity">Влажность: %s %%</string>
     <string name="visibility">Видимость: %s м</string>
     <string name="wind_speed">Скорость ветра: %s м/с</string>
 
@@ -14,6 +14,8 @@
     <string name="city_name">Название города</string>
     <string name="add">Добавить</string>
     <string name="cancel">Отмена</string>
+
+    <string name="empty_city_error">Введите город</string>
 
     <string name="no_connection">Нет подключения</string>
 
