@@ -2,6 +2,7 @@ package com.veko.weatherexample.fragment.currentWeather
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -11,13 +12,13 @@ import com.veko.weatherexample.R
 import com.veko.weatherexample.databinding.FragmentWeatherBinding
 import com.veko.weatherexample.fragment.currentWeather.rv.WeatherAdapter
 import com.veko.weatherexample.fragment.currentWeather.rv.WeatherItems
-import com.veko.weatherexample.utils.navigateTo
+import com.veko.weatherexample.utils.ext.navigateTo
 import com.veko.weatherexample.utils.rv.AddCityDecoration
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class WeatherFragment : Fragment() {
+class WeatherFragment : Fragment(R.layout.fragment_weather) {
 
     private val binding by viewBinding<FragmentWeatherBinding>()
 
@@ -26,7 +27,8 @@ class WeatherFragment : Fragment() {
     private val adapter by lazy(LazyThreadSafetyMode.NONE) {
         WeatherAdapter(
             onAddClick = viewModel::onAddClicked,
-            onArrowClick = viewModel::onArrowClicked
+            onArrowClick = viewModel::onArrowClicked,
+            onItemClick = viewModel::onItemClicked
         )
     }
 
@@ -40,7 +42,7 @@ class WeatherFragment : Fragment() {
         with(binding) {
             rvWeather.adapter = adapter
 
-            val bottomMargin = resources.getDimensionPixelSize(R.dimen.add_button_margin)
+            val bottomMargin = resources.getDimensionPixelSize(R.dimen.dp_16)
             rvWeather.addItemDecoration(AddCityDecoration(bottomMargin))
         }
     }
@@ -51,6 +53,7 @@ class WeatherFragment : Fragment() {
                 repeatOnLifecycle(Lifecycle.State.RESUMED) {
                     viewStateFlow.collectLatest { state ->
                         updateRv(state.weather)
+                        updateLoading(state.loading)
                     }
                 }
             }
@@ -60,6 +63,11 @@ class WeatherFragment : Fragment() {
                     actionFlow.collectLatest { action ->
                         when (action) {
                             WeatherViewAction.AddNew -> navigateTo(WeatherFragmentDirections.actionToAddCity())
+                            is WeatherViewAction.OpenDaily -> navigateTo(
+                                WeatherFragmentDirections.actionToDailyWeather(
+                                    city = action.city
+                                )
+                            )
                         }
                     }
                 }
@@ -69,5 +77,13 @@ class WeatherFragment : Fragment() {
 
     private fun updateRv(items: List<WeatherItems>) {
         adapter.submitList(items)
+    }
+
+    private fun updateLoading(isLoading: Boolean) {
+        with(binding) {
+            tvTitle.isVisible = isLoading.not()
+            rvWeather.isVisible = isLoading.not()
+            progress.isVisible = isLoading
+        }
     }
 }

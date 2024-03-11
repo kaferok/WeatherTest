@@ -6,6 +6,7 @@ sealed class WeatherItems {
 
     data class Weather(
         val icon: String = EMPTY_STRING,
+        val date: String = EMPTY_STRING,
         val city: String = EMPTY_STRING,
         val temperature: String = EMPTY_STRING,
         val feelsLike: String = EMPTY_STRING,

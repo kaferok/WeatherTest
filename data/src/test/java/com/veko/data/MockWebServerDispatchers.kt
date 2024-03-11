@@ -7,7 +7,7 @@ import okhttp3.mockwebserver.RecordedRequest
 class MockWebServerDispatchers {
 
     companion object {
-        private const val COORDS_PATH = "/data/3.0/onecall?q=Moscow&appid=${BuildConfig.API_KEY}"
+        private const val COORDS_PATH = "/geo/1.0/direct?q=Moscow&appid=${BuildConfig.API_KEY}"
         private const val WEATHER_MOSCOW_PATH = "/data/3.0/onecall?lat=55.7504&lon=37.6175&exclude=current&lang=ru&appid=${BuildConfig.API_KEY}"
         private const val ERROR_MESSAGE = "ERROR_NETWORK_REQUEST"
     }

@@ -6,4 +6,6 @@ sealed class WeatherViewAction : ViewAction {
 
     object AddNew : WeatherViewAction()
 
+    class OpenDaily(val city: String) : WeatherViewAction()
+
 }

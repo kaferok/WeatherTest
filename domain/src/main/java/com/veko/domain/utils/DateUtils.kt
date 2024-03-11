@@ -6,14 +6,24 @@ import java.util.Locale
 
 class DateUtils {
     companion object {
-        private const val OPERATIONS_DATE_FORMAT = "LLL dd"
+        private const val DAILY_WEATHER_DATE_FORMAT = "LLL dd"
+        private const val CURRENT_WEATHER_DATE_FORMAT = "LLL dd HH:mm"
     }
 
-    private val dateFormatter =
-        SimpleDateFormat(OPERATIONS_DATE_FORMAT, Locale("ru", "RU"))
+    private val dailyWeatherDateFormatter =
+        SimpleDateFormat(DAILY_WEATHER_DATE_FORMAT, Locale("ru", "RU"))
 
-    fun formatOperation(time: Long, timeOffset: Long): String {
-        val date = Date(time + timeOffset)
-        return dateFormatter.format(date)
+    private val currentWeatherDateFormatter = SimpleDateFormat(CURRENT_WEATHER_DATE_FORMAT, Locale("ru", "RU"))
+
+    fun formatDailyWeather(time: Long, timeOffset: Long): String {
+        val timeInMillis = (time +timeOffset).times(1000)
+        val date = Date(timeInMillis)
+        return dailyWeatherDateFormatter.format(date)
+    }
+
+    fun formatCurrentWeather(time: Long, timeOffset: Long): String{
+        val timeInMillis = (time +timeOffset).times(1000)
+        val date = Date(timeInMillis)
+        return currentWeatherDateFormatter.format(date)
     }
 }

@@ -6,24 +6,20 @@ import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
 import androidx.core.content.getSystemService
-import kotlinx.coroutines.channels.BufferOverflow
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 
 internal class ConnectionManagerImpl(context: Context) : ConnectionManager {
 
     private val systemManager = context.getSystemService<ConnectivityManager>()
 
-    private val _connectionState = MutableSharedFlow<ConnectionState>(
-        extraBufferCapacity = 1,
-        onBufferOverflow = BufferOverflow.DROP_OLDEST
-    )
+    private val _connectionState = MutableStateFlow(ConnectionState.LOST)
 
-    override val connectionState: SharedFlow<ConnectionState>
-        get()  {
+    override val connectionState: StateFlow<ConnectionState>
+        get() {
             systemManager?.registerNetworkCallback(networkRequest, networkCallback)
-            return _connectionState.asSharedFlow()
+            return _connectionState.asStateFlow()
         }
 
     private val networkRequest = NetworkRequest.Builder()
@@ -41,7 +37,6 @@ internal class ConnectionManagerImpl(context: Context) : ConnectionManager {
         override fun onLost(network: Network) {
             super.onLost(network)
             _connectionState.tryEmit(ConnectionState.LOST)
-
         }
     }
 

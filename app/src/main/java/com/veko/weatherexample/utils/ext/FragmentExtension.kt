@@ -1,4 +1,4 @@
-package com.veko.weatherexample.utils
+package com.veko.weatherexample.utils.ext
 
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -15,4 +15,5 @@ fun Fragment.navigateUp() {
     activityBinder.navigateUp()
 }
 
-fun Fragment.toast(message: String) = Toast.makeText(requireContext(), message, Toast.LENGTH_LONG)
+fun Fragment.toast(message: String) =
+    Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()

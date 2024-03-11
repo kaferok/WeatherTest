@@ -7,7 +7,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavDirections
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.veko.weatherexample.R
 import com.veko.weatherexample.databinding.ActivityMainBinding
@@ -20,6 +20,13 @@ class WeatherActivity : AppCompatActivity(), ActivityBinder {
     private val viewModel by viewModel<WeatherActivityViewModel>()
 
     private val binding by viewBinding<ActivityMainBinding>()
+
+    private val navController by lazy {
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.container) as NavHostFragment
+        navHostFragment.navController
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -27,11 +34,11 @@ class WeatherActivity : AppCompatActivity(), ActivityBinder {
     }
 
     override fun navigateTo(direction: NavDirections) {
-        findNavController(R.id.mainContainer).navigate(direction)
+        navController.navigate(direction)
     }
 
     override fun navigateUp() {
-        findNavController(R.id.mainContainer).navigateUp()
+        navController.navigateUp()
     }
 
     private fun observeViewModel() {

@@ -8,19 +8,20 @@ import com.veko.data.model.getWeather.toEntityModel
 import com.veko.data.storage.dao.WeatherDao
 import com.veko.data.storage.entity.WeatherEntity
 import com.veko.data.storage.entity.toDomainModel
-import com.veko.data.utils.doOnSuccess
-import com.veko.data.utils.safeRequest
 import com.veko.domain.model.Weather
 import com.veko.domain.repository.WeatherRepository
 import com.veko.common.utils.withLatestFrom
-import com.veko.data.utils.doOnError
+import com.veko.data.utils.Result
+import com.veko.data.utils.bodyOrFailure
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.cancellable
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.filterNot
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.onEmpty
+import kotlinx.coroutines.job
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
@@ -33,39 +34,41 @@ class WeatherRepositoryImpl(
 ) : WeatherRepository {
 
     companion object {
-        private const val DEFAULT_CITY = "Moscow"
+        private const val DEFAULT_CITY = "Москва"
         private const val DEFAULT_EXCLUDE = "minutely,hourly,alerts"
     }
 
     init {
+        addFirstWeather()
         updateExist()
     }
 
     override fun observeCityWeather(): Flow<List<Weather>> =
         weatherDao.getWeatherByCoords()
-            .onEmpty {
-                getCoords(city = DEFAULT_CITY, exclude = DEFAULT_EXCLUDE)
-            }
+            .filterNot { it.isEmpty() }
             .map { it.map(WeatherEntity::toDomainModel) }
 
     override suspend fun getCoords(city: String, exclude: String) {
-        safeRequest {
-            api.getCoordsByCity(city = city)
-                .doOnSuccess { response ->
+        val result = api.getCoordsByCity(city = city).bodyOrFailure()
+        when (result) {
+            is Result.Success -> {
+                if (result.value.isEmpty()) {
+                    exceptionHandler.update(404)
+                } else {
                     coroutineScope.launch {
                         getWeather(
-                            city = city,
-                            lat = response.firstOrNull()?.lat ?: 0.0,
-                            lon = response.firstOrNull()?.lon ?: 0.0,
+                            city = result.value.firstOrNull()?.locale?.ru.orEmpty(),
+                            lat = result.value.firstOrNull()?.lat ?: 0.0,
+                            lon = result.value.firstOrNull()?.lon ?: 0.0,
                             exclude = exclude
                         )
                     }
                 }
-                .doOnError { throwable ->
-                    if (throwable is HttpException) {
-                        exceptionHandler.update(throwable.code())
-                    }
-                }
+            }
+
+            is Result.Failure -> {
+                exceptionHandler.update(result.errorCode)
+            }
         }
     }
 
@@ -77,18 +80,17 @@ class WeatherRepositoryImpl(
         lon: Double,
         exclude: String = DEFAULT_EXCLUDE
     ) {
-        safeRequest {
-            api.getWeather(lat, lon, exclude)
-                .doOnSuccess { response ->
-                    coroutineScope.launch {
-                        weatherDao.insertOrUpdate(response.toEntityModel(city))
-                    }
+        coroutineScope.launch {
+            val result = api.getWeather(lat, lon, exclude).bodyOrFailure()
+            when (result) {
+                is Result.Success -> {
+                    weatherDao.insertOrUpdate(result.value.toEntityModel(city))
                 }
-                .doOnError { throwable ->
-                    if (throwable is HttpException) {
-                        exceptionHandler.update(throwable.code())
-                    }
+
+                is Result.Failure -> {
+                    exceptionHandler.update(result.errorCode)
                 }
+            }
         }
     }
 
@@ -97,15 +99,24 @@ class WeatherRepositoryImpl(
             weatherDao
                 .getWeatherByCoords()
                 .withLatestFrom(connectionManager.connectionState) { entities, connection -> entities to connection }
-                .filter { (_, connection) -> connection == ConnectionState.AVAILABLE }
+                .filter { (entities, connection) -> connection == ConnectionState.AVAILABLE && entities.isNotEmpty() }
                 .map { (entities, _) -> entities }
-                .onEmpty { cancel() }
+                .cancellable()
                 .collectLatest { entities ->
                     entities.forEach { city ->
                         getWeather(city = city.latest.city, lat = city.lat, lon = city.lon)
                     }
-                    cancel()
+                    this.coroutineContext.job.cancel()
                 }
+        }
+    }
+
+    private fun addFirstWeather() {
+        coroutineScope.launch {
+            val isWeatherEmpty = weatherDao.isEmpty()
+            if (isWeatherEmpty) {
+                getCoords(city = DEFAULT_CITY, exclude = DEFAULT_EXCLUDE)
+            }
         }
     }
 }
