@@ -15,4 +15,7 @@ interface WeatherDao {
 
     @Query("SELECT*FROM CITY_TABLE")
     fun getWeatherByCoords(): Flow<List<WeatherEntity>>
+
+    @Query("SELECT EXISTS(SELECT* FROM CITY_TABLE WHERE city = :city)")
+    suspend fun isCityExist(city: String): Boolean
 }

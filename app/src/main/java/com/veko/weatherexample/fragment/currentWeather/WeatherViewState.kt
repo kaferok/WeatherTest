@@ -5,4 +5,5 @@ import com.veko.weatherexample.utils.ViewState
 
 data class WeatherViewState(
     val weather: List<WeatherItems> = emptyList(),
+    val loading: Boolean = false
 ) : ViewState

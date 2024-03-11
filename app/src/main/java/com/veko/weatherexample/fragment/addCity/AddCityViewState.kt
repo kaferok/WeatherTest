@@ -4,5 +4,7 @@ import com.veko.weatherexample.utils.EMPTY_STRING
 import com.veko.weatherexample.utils.ViewState
 
 data class AddCityViewState(
-    val city: String = EMPTY_STRING
+    val city: String = EMPTY_STRING,
+    val weatherListSize: Int = 0,
+    val loading: Boolean = false
 ) : ViewState

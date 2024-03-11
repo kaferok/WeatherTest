@@ -9,4 +9,6 @@ interface WeatherUseCase {
 
     suspend fun getCoords(city: String, exclude: String = "minutely,hourly,alerts")
 
+    suspend fun checkCityExist(city: String):Boolean
+
 }

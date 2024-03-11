@@ -11,4 +11,6 @@ class WeatherUseCaseImpl(
 
     override suspend fun getCoords(city: String, exclude: String) =
         repository.getCoords(city, exclude)
+
+    override suspend fun checkCityExist(city: String): Boolean = repository.checkCityExist(city)
 }

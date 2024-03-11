@@ -25,7 +25,7 @@ val dataModule = module {
     single { WeatherDatabase.getInstance(androidContext()) }
     single { get<WeatherDatabase>().weatherDao() }
 
-    single<WeatherRepository> { WeatherRepositoryImpl(get(), get(), get(), get()) }
+    single<WeatherRepository> { WeatherRepositoryImpl(get(), get(), get(), get(), get()) }
 
     single { AppDispatchers }
 

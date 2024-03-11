@@ -5,4 +5,5 @@ import com.veko.weatherexample.utils.ViewAction
 sealed class WeatherViewAction : ViewAction {
 
     object AddNew : WeatherViewAction()
+
 }
